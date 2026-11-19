@@ -99,6 +99,13 @@ label.f{display:block;margin:10px 0}label.f>span{display:block;font-size:14px;co
 .grab{width:44px;height:5px;border-radius:5px;background:var(--line);margin:4px auto 10px}
 @keyframes up{from{transform:translateY(40px);opacity:.4}}
 @media(prefers-reduced-motion:reduce){.sheet{animation:none}.rfg{transition:none}}
+.demo{position:relative;border-radius:16px;overflow:hidden;background:var(--card2);aspect-ratio:3/2;margin:12px 0}
+.demo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.demo img.b{animation:flip 2.4s steps(1) infinite}
+@keyframes flip{0%{opacity:0}50%{opacity:1}}
+.demo .lbl{position:absolute;left:10px;bottom:10px;background:rgb(0 0 0/.6);color:#fff;font-size:12px;font-weight:600;padding:3px 8px;border-radius:8px}
+.th{width:44px;height:44px;flex:none;border-radius:11px;object-fit:cover;background:var(--card2)}
+@media(prefers-reduced-motion:reduce){.demo{aspect-ratio:3/1}.demo img{width:50%}.demo img.b{left:50%;animation:none}}
 .steps{padding-left:22px;margin:8px 0}.steps li{margin:6px 0}
 .toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;z-index:30;font-weight:600;font-size:15px;max-width:90vw}
 .fig{position:relative;min-height:220px}.fig>svg{position:absolute;inset:0;width:100%;height:100%}
@@ -219,6 +226,11 @@ const EX=Object.fromEntries(EXR.map(e=>[e.id,e]));
 const TIMED=['plank','sideplank','wallsit'];
 const vidUrl=e=>'https://www.youtube.com/results?search_query='+encodeURIComponent(e.en+' exercise proper form');
 const GI={benen:'<path d="M9 3v8l-2 10M15 3v8l2 10"/>',billen:'<circle cx="8.5" cy="13" r="5"/><circle cx="15.5" cy="13" r="5"/>',borst:'<path d="M4 8c3-2 6-2 8 0 2-2 5-2 8 0v5c-3 3-5 3-8 1-3 2-5 2-8-1z"/>',rug:'<path d="M12 3v18M6 6l6 3 6-3M6 12l6 3 6-3"/>',schouders:'<circle cx="12" cy="6" r="3"/><path d="M4 18c0-5 3-8 8-8s8 3 8 8"/>',armen:'<path d="M5 18c3 0 4-3 5-6l2-6 3 1-1 5c3 0 5 2 5 5"/>',core:'<rect x="7" y="4" width="10" height="16" rx="3"/><path d="M7 9h10M7 14h10M12 4v16"/>',cardio:'<path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2 4 4 0 0 1 7 2c0 5.5-7 10-7 10z"/>',mobiliteit:'<circle cx="12" cy="5" r="2"/><path d="M4 10h16M12 10v5l-4 6M12 15l4 6"/>'};
+const IMGMAP={"bw_squat":"Bodyweight_Squat","goblet":"Goblet_Squat","bb_squat":"Barbell_Full_Squat","legpress":"Leg_Press","lunge":"Bodyweight_Walking_Lunge","bulgarian":"Split_Squat_with_Dumbbells","stepup":"Dumbbell_Step_Ups","rdl":"Romanian_Deadlift","deadlift":"Barbell_Deadlift","legcurl":"Lying_Leg_Curls","legext":"Leg_Extensions","calf":"Standing_Calf_Raises","glutebridge":"Butt_Lift_Bridge","hipthrust":"Barbell_Hip_Thrust","pushup":"Pushups","inclinepushup":"Incline_Push-Up","benchpress":"Barbell_Bench_Press_-_Medium_Grip","dbpress":"Dumbbell_Bench_Press","inclinedb":"Incline_Dumbbell_Press","chestpress":"Leverage_Chest_Press","cablefly":"Cable_Crossover","pullup":"Pullups","latpull":"Wide-Grip_Lat_Pulldown","dbrow":"One-Arm_Dumbbell_Row","bbrow":"Bent_Over_Barbell_Row","seatedrow":"Seated_Cable_Rows","bandpull":"Band_Pull_Apart","superman":"Superman","facepull":"Face_Pull","ohp":"Standing_Military_Press","dbshoulder":"Dumbbell_Shoulder_Press","lateral":"Side_Lateral_Raise","reardelt":"Reverse_Flyes","curl":"Dumbbell_Bicep_Curl","hammer":"Hammer_Curls","triceppush":"Triceps_Pushdown_-_Rope_Attachment","overheadext":"Standing_Dumbbell_Triceps_Extension","dips":"Bench_Dips","plank":"Plank","sideplank":"Side_Bridge","deadbug":"Dead_Bug","crunch":"Crunches","legraise":"Flat_Bench_Lying_Leg_Raise","russian":"Russian_Twist","pallof":"Pallof_Press","mountain":"Mountain_Climbers","kbswing":"One-Arm_Kettlebell_Swings","bike":"Bicycling_Stationary","row":"Rowing_Stationary","walk":"Walking_Treadmill","catcow":"Cat_Stretch","hipflexor":"Kneeling_Hip_Flexor","worldsgreatest":"Worlds_Greatest_Stretch"};
+const IMG_RAW='https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/';
+const imgUrl=(e,k)=>!IMGMAP[e.id]?'':(window.claude&&window.claude.use)?`ex/${e.id}-${k}.jpg`:IMG_RAW+IMGMAP[e.id]+'/'+k+'.jpg';
+const thumb=e=>IMGMAP[e.id]?`<img class="th" src="${imgUrl(e,0)}" alt="" loading="lazy" onerror="this.style.visibility='hidden'">`:gIcon(e.g);
+const demo=e=>IMGMAP[e.id]?`<div class="demo" aria-label="Demonstratie ${esc(e.n)}"><img src="${imgUrl(e,0)}" alt="Startpositie"><img class="b" src="${imgUrl(e,1)}" alt="Eindpositie"><span class="lbl">Start ↔ eind</span></div>`:'';
 const gIcon=g=>`<span class="gl" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${GI[g]||''}</svg></span>`;
 
 /* ---------- Voedingsmiddelen (per 100 g) ---------- */
@@ -398,6 +410,7 @@ function vToday(){
   if(!p.set)h+=`<div class="card"><h3>Begin met je profiel</h3><p class="mut sm">Vul je lichaam, leeftijd, doel en eventuele blessures in. Dan maakt de app je trainingsschema, calorie-doel en voedingsschema.</p><button class="pri full" data-a="tab" data-t="profiel">Profiel instellen</button></div>`;
   h+=`<div class="card"><div class="hero">${ring(tot.k,t.kcal,tot.k>t.kcal?'var(--warn)':'var(--food)',kcalLabel(tot.k,t.kcal))}<div><div class="row sp sm"><span class="mut">Gegeten</span><b class="num">${R(tot.k)} / ${t.kcal} kcal</b></div>${macroBar('Eiwit',tot.p,t.p,'var(--p)')}${macroBar('Koolhydraten',tot.c,t.c,'var(--c)')}${macroBar('Vet',tot.f,t.f,'var(--f)')}</div></div><div class="g2" style="margin-top:12px"><button class="grn" data-a="addfood" data-m="${hr<10?0:hr<14?1:hr<20?2:3}">+ Eten toevoegen</button><button data-a="tab" data-t="voeding">Dagboek</button></div></div>`;
   h+=workoutBlock(today());
+  h+=extBlock(today());
   h+=`<div class="card"><div class="row sp"><h3>Water</h3><span class="mut sm num">${d.water||0} / 8 glazen</span></div><div class="water" style="margin-top:8px">${Array.from({length:8},(_,i)=>`<button aria-label="${i+1} glazen" data-a="water" data-i="${i+1}" class="${i<(d.water||0)?'on':''}"></button>`).join('')}</div></div>`;
   return h;
 }
@@ -413,11 +426,18 @@ function workoutBlock(date){
   let h=`<div class="wk"><div class="row sp"><div><span class="mut sm">Training van vandaag</span><h3>${esc(w.dd.name)}</h3></div><button class="ghost" style="color:#fff" data-a="pickday">Wissel</button></div><div class="bar" style="background:rgb(255 255 255/.3)"><i style="width:${total?done/total*100:0}%;background:#fff"></i></div><p class="sm mut" style="margin:6px 0 0">${done} van ${total} sets gedaan · ${w.dd.ex.length} oefeningen${wk.done?' · afgerond':''}</p></div>`;
   w.dd.ex.forEach((x,i)=>{
     const e=EX[x.id];if(!e)return;const cf=conflicts(e);const arr=(wk.sets||{})[i]||[];
-    h+=`<div class="exr"><div class="row">${gIcon(e.g)}<div class="grow"><button class="nm" data-a="exinfo" data-id="${e.id}">${esc(e.n)}</button><div class="xs mut">${x.sets} × ${esc(x.reps)}${x.rest?` · ${x.rest} s rust`:''}</div></div><a class="btn ghost" href="${vidUrl(e)}" target="_blank" rel="noopener" aria-label="Video ${esc(e.n)}"><svg class="ico" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></a></div>${cf.length?`<p class="xs" style="margin:6px 0 0"><span class="badge w">Let op: ${cf.map(c=>INJ[c]).join(', ')}</span></p>`:''}<div class="sets">${Array.from({length:+x.sets||0},(_,s)=>`<button class="dot ${arr[s]?'on':''}" data-a="set" data-d="${date}" data-i="${i}" data-s="${s}" aria-label="Set ${s+1}">${s+1}</button>`).join('')}${e.g!=='cardio'&&e.eq!=='geen'?`<input class="kg" inputmode="decimal" placeholder="kg" value="${esc((wk.kg||{})[i]||'')}" data-in="kg" data-d="${date}" data-i="${i}" aria-label="Gewicht in kg">`:''}</div></div>`;
+    h+=`<div class="exr"><div class="row">${thumb(e)}<div class="grow"><button class="nm" data-a="exinfo" data-id="${e.id}">${esc(e.n)}</button><div class="xs mut">${x.sets} × ${esc(x.reps)}${x.rest?` · ${x.rest} s rust`:''}</div></div><a class="btn ghost" href="${vidUrl(e)}" target="_blank" rel="noopener" aria-label="Video ${esc(e.n)}"><svg class="ico" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></a></div>${cf.length?`<p class="xs" style="margin:6px 0 0"><span class="badge w">Let op: ${cf.map(c=>INJ[c]).join(', ')}</span></p>`:''}<div class="sets">${Array.from({length:+x.sets||0},(_,s)=>`<button class="dot ${arr[s]?'on':''}" data-a="set" data-d="${date}" data-i="${i}" data-s="${s}" aria-label="Set ${s+1}">${s+1}</button>`).join('')}${e.g!=='cardio'&&e.eq!=='geen'?`<input class="kg" inputmode="decimal" placeholder="kg" value="${esc((wk.kg||{})[i]||'')}" data-in="kg" data-d="${date}" data-i="${i}" aria-label="Gewicht in kg">`:''}</div></div>`;
   });
   h+=`<button class="pri full" style="margin:6px 0 10px" data-a="finish" data-d="${date}">${wk.done?'Training afgerond ✓':'Training afronden'}</button>`;
   return h;
 }
+const EXT_TYPES=[['Seven',8],['HIIT',8],['Hardlopen',9.8],['Fietsen',7],['Wandelen',3.8],['Zwemmen',7],['Overig',5]];
+const extKcal=(t,min)=>{const met=(EXT_TYPES.find(x=>x[0]===t)||['',5])[1];return Math.round(met*(+num(S.profile.kg)||75)*min/60)};
+function extBlock(date){
+  const ex=peekDay(date).ext||[];
+  return `<div class="card"><div class="row sp"><h3>Andere training</h3><button class="ghost" data-a="extadd">+ Toevoegen</button></div>${ex.length?ex.map((x,i)=>`<div class="li" style="cursor:default"><span class="t"><b>${esc(x.n)}</b><small>${x.min} min · ca. ${x.kcal} kcal verbrand</small></span><button class="ghost" data-a="extdel" data-i="${i}" aria-label="Verwijder">✕</button></div>`).join(''):'<p class="sm mut" style="margin:0">Bijv. je Seven-workout, hardlopen of fietsen.</p>'}</div>`;
+}
+function addExt(n,min,kcal,date=today()){const d=day(date);d.ext=d.ext||[];min=Math.max(1,Math.round(+min||7));d.ext.push({n,min,kcal:isFinite(+kcal)&&+kcal>0?Math.round(+kcal):extKcal(n,min)});saveDay(date)}
 function nextTraining(date){
   const plan=activePlan();if(!plan)return null;
   for(let i=1;i<=7;i++){const ds=addDays(date,i),wd=wdOf(ds);const dd=plan.days.find(x=>(x.wd||[]).includes(wd));if(dd)return {name:dd.name,when:i===1?'morgen':DOWL[wd]}}
@@ -445,7 +465,7 @@ function libList(q,g,act,extra=''){
   q=(q||'').toLowerCase().trim();
   const list=EXR.filter(e=>(!g||e.g===g)&&(!q||e.n.toLowerCase().includes(q)||e.en.includes(q)||GROUPS[e.g].toLowerCase().includes(q)));
   if(!list.length)return '<div class="empty">Geen oefeningen gevonden.</div>';
-  return list.map(e=>{const cf=conflicts(e),eqOk=allowedEq(e.eq);return `<button class="li" data-a="${act}" data-id="${e.id}" ${extra}>${gIcon(e.g)}<span class="t"><b>${esc(e.n)}</b><small>${GROUPS[e.g]} · ${EQ[e.eq]}</small></span>${cf.length?`<span class="badge w">${cf.map(c=>INJ[c]).join(', ')}</span>`:!eqOk?'<span class="badge">sportschool</span>':''}</button>`}).join('');
+  return list.map(e=>{const cf=conflicts(e),eqOk=allowedEq(e.eq);return `<button class="li" data-a="${act}" data-id="${e.id}" ${extra}>${thumb(e)}<span class="t"><b>${esc(e.n)}</b><small>${GROUPS[e.g]} · ${EQ[e.eq]}</small></span>${cf.length?`<span class="badge w">${cf.map(c=>INJ[c]).join(', ')}</span>`:!eqOk?'<span class="badge">sportschool</span>':''}</button>`}).join('');
 }
 function editPlan(){
   const pl=S.plans.find(x=>x.id===V.edit);if(!pl){V.edit=null;return vTraining()}
@@ -494,8 +514,8 @@ function vVoortgang(){
   for(let i=6;i>=0;i--){const ds=addDays(today(),-i),k=sumFood(peekDay(ds).food).k;h+=`<div class="wbar"><span class="mut">${DOW[wdOf(ds)]}</span><div class="bar"><i style="width:${Math.min(100,k/(t.kcal*1.3)*100)}%;background:${k>t.kcal*1.05?'var(--warn)':'var(--food)'}"></i></div><span class="num" style="text-align:right">${R(k)}</span></div>`}
   h+=`<p class="xs mut" style="margin:6px 0 0">Balk vol = 130% van je doel (${t.kcal} kcal).</p></div>`;
   let w7=0,w30=0,streak=0;
-  for(let i=0;i<30;i++){const dn=peekDay(addDays(today(),-i)).wk?.done;if(dn){w30++;if(i<7)w7++}}
-  for(let i=0;i<60;i++){const dd=peekDay(addDays(today(),-i));if(dd.food.length||dd.wk?.done)streak++;else if(i>0)break}
+  for(let i=0;i<30;i++){const pd=peekDay(addDays(today(),-i)),dn=pd.wk?.done||(pd.ext||[]).length;if(dn){w30++;if(i<7)w7++}}
+  for(let i=0;i<60;i++){const dd=peekDay(addDays(today(),-i));if(dd.food.length||dd.wk?.done||(dd.ext||[]).length)streak++;else if(i>0)break}
   h+=`<h2>Trainingen</h2><div class="card g3"><div><span class="xs mut">Deze week</span><div style="font-size:24px;font-weight:800">${w7}</div></div><div><span class="xs mut">30 dagen</span><div style="font-size:24px;font-weight:800">${w30}</div></div><div><span class="xs mut">Dagen op rij actief</span><div style="font-size:24px;font-weight:800">${streak}</div></div></div>`;
   if(ws.length)h+=`<h2>Metingen</h2><div class="card">${ws.slice().reverse().slice(0,12).map(w=>`<div class="li" style="cursor:default"><span class="t"><b class="num">${String(w.kg).replace('.',',')} kg</b><small>${fdate(w.d)}</small></span><button class="ghost" data-a="delw" data-d="${w.d}" aria-label="Verwijder meting">✕</button></div>`).join('')}</div>`;
   return h;
@@ -634,6 +654,10 @@ const A={
   finish:b=>{const date=b.dataset.d,w=todaysWorkout(date);if(!w||w.idx<0)return;const d=day(date);if(!d.wk||d.wk.pi!==w.idx||d.wk.plan!==w.plan.id)d.wk={plan:w.plan.id,pi:w.idx,sets:{},kg:{},done:false};d.wk.done=!d.wk.done;saveDay(date);render();if(d.wk.done)toast('Lekker bezig! Training opgeslagen.')},
   pickday:()=>{const pl=activePlan();if(!pl){A.genplan();return}sheet(`<h3>Welke training doe je vandaag?</h3>${pl.days.map((dd,i)=>`<button class="li" data-a="setday" data-i="${i}"><span class="t"><b>${esc(dd.name)}</b><small>${dd.ex.length} oefeningen</small></span></button>`).join('')}<button class="li" data-a="setday" data-i="-1"><span class="t"><b>Rustdag</b></span></button>`)},
   setday:b=>{const pl=activePlan(),d=day(today()),i=+b.dataset.i;d.wk={plan:pl.id,pi:i<0?null:i,sets:{},kg:{},done:false};if(i<0)d.wk.pi=-1;saveDay(today());closeSheet();render()},
+  extadd:()=>{sheet(`<h3>Andere training toevoegen</h3><div class="chips" style="flex-wrap:wrap;margin-top:8px">${EXT_TYPES.map(([t],i)=>`<button class="chip ${i?'':'on'}" data-a="extt" data-t="${t}">${t}</button>`).join('')}</div><input type="hidden" id="xt" value="Seven"><div class="g2"><label class="f"><span>Minuten</span><input id="xm" inputmode="numeric" value="7" data-in="xm"></label><label class="f"><span>Verbrand (kcal)</span><input id="xk" inputmode="numeric" value="${extKcal('Seven',7)}"></label></div><p class="xs mut">Schatting op basis van je gewicht. Heb je het exacte getal uit Seven of Apple Gezondheid, vul dat dan in.</p><button class="pri full" data-a="extsave">Opslaan</button>`)},
+  extt:b=>{document.querySelectorAll('[data-a=extt]').forEach(x=>x.classList.toggle('on',x===b));$('#xt').value=b.dataset.t;$('#xk').value=extKcal(b.dataset.t,num($('#xm').value)||0)},
+  extsave:()=>{const min=num($('#xm').value);if(!(min>0)){toast('Vul het aantal minuten in');return}addExt($('#xt').value,min,num($('#xk').value));closeSheet();render();toast('Training opgeslagen')},
+  extdel:b=>{const d=day(today());(d.ext||[]).splice(+b.dataset.i,1);saveDay(today());render()},
   genplan:()=>{const pl=genPlan();toast('Schema gemaakt: '+pl.name);V.tr='plans';if(V.tab!=='vandaag')go('training');else render()},
   newplan:()=>{const pl={id:uid(),name:'Mijn schema',days:[{name:'Training 1',wd:[1],ex:[]}]};S.plans.push(pl);if(!S.active)S.active=pl.id;save('main');V.edit=pl.id;render()},
   activate:b=>{S.active=b.dataset.id;save('main');render();toast('Schema geactiveerd')},
@@ -643,7 +667,7 @@ const A={
   tr:b=>{V.tr=b.dataset.v;V.edit=null;render()},
   libg:b=>{V.libG=b.dataset.g;render()},
   exinfo:b=>{const e=EX[b.dataset.id],cf=conflicts(e),alt=cf.length?safeAlt(e):null;
-    sheet(`<div class="row">${gIcon(e.g)}<div><h3>${esc(e.n)}</h3><span class="xs mut">${GROUPS[e.g]} · ${EQ[e.eq]}</span></div></div>${cf.length?`<p class="sm" style="margin-top:10px"><span class="badge w">Belast je ${cf.map(c=>INJ[c].toLowerCase()).join(' en ')}</span>${alt?` Veiliger alternatief: <button class="ghost" style="padding:0 4px;min-height:auto" data-a="exinfo" data-id="${alt.id}">${esc(alt.n)}</button>`:''}</p>`:''}<h3 style="margin-top:14px">Uitvoering</h3><ol class="steps">${e.st.map(s=>`<li>${esc(s)}</li>`).join('')}</ol><p class="sm"><b>Tip:</b> ${esc(e.tip)}</p><a class="btn pri full" href="${vidUrl(e)}" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Bekijk instructievideo</a><p class="xs mut" style="margin-top:8px">Opent YouTube met instructievideo's van deze oefening.</p>`)},
+    sheet(`<div class="row">${gIcon(e.g)}<div><h3>${esc(e.n)}</h3><span class="xs mut">${GROUPS[e.g]} · ${EQ[e.eq]}</span></div></div>${demo(e)}${cf.length?`<p class="sm" style="margin-top:10px"><span class="badge w">Belast je ${cf.map(c=>INJ[c].toLowerCase()).join(' en ')}</span>${alt?` Veiliger alternatief: <button class="ghost" style="padding:0 4px;min-height:auto" data-a="exinfo" data-id="${alt.id}">${esc(alt.n)}</button>`:''}</p>`:''}<h3 style="margin-top:14px">Uitvoering</h3><ol class="steps">${e.st.map(s=>`<li>${esc(s)}</li>`).join('')}</ol><p class="sm"><b>Tip:</b> ${esc(e.tip)}</p><a class="btn pri full" href="${vidUrl(e)}" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Bekijk video op YouTube</a><p class="xs mut" style="margin-top:8px">Opent YouTube met instructievideo's van deze oefening.${IMGMAP[e.id]?' Foto\'s: Free Exercise DB.':''}</p>`)},
   wd:b=>{const pl=S.plans.find(x=>x.id===V.edit),dd=pl.days[+b.dataset.di],w=+b.dataset.w;dd.wd=dd.wd||[];dd.wd=dd.wd.includes(w)?dd.wd.filter(x=>x!==w):dd.wd.concat(w);save('main');render()},
   exmv:b=>{const dd=S.plans.find(x=>x.id===V.edit).days[+b.dataset.di],i=+b.dataset.i,j=i+ +b.dataset.dir;if(j<0||j>=dd.ex.length)return;[dd.ex[i],dd.ex[j]]=[dd.ex[j],dd.ex[i]];save('main');render()},
   exdel:b=>{const dd=S.plans.find(x=>x.id===V.edit).days[+b.dataset.di];dd.ex.splice(+b.dataset.i,1);save('main');render()},
@@ -701,6 +725,7 @@ document.addEventListener('input',e=>{
   else if(k==='fg'){$('#fprev').innerHTML=amountPrev(FS.sel,el.value)}
   else if(k==='kg'){const date=el.dataset.d,w=todaysWorkout(date);if(!w||w.idx<0)return;const d=day(date);if(!d.wk||d.wk.plan!==w.plan.id||d.wk.pi!==w.idx)d.wk={plan:w.plan.id,pi:w.idx,sets:{},kg:{},done:false};d.wk.kg[el.dataset.i]=el.value;clearTimeout(kgT);kgT=setTimeout(()=>saveDay(date),800)}
   else if(k==='pf'&&el.tagName==='INPUT'){const kk=el.dataset.k;S.profile[kk]=kk==='name'?el.value:(el.value===''?'':num(el.value)||'');const c=$('#calc');if(c)c.innerHTML=calcHtml();save('main')}
+  else if(k==='xm'){const x=$('#xk');if(x)x.value=extKcal($('#xt').value,num(el.value)||0)}
   else if(k==='plname'){const pl=S.plans.find(x=>x.id===V.edit);pl.name=el.value;save('main')}
   else if(k==='dname'){S.plans.find(x=>x.id===V.edit).days[+el.dataset.di].name=el.value;save('main')}
   else if(k==='exf'){const x=S.plans.find(p=>p.id===V.edit).days[+el.dataset.di].ex[+el.dataset.i];x[el.dataset.k]=el.dataset.k==='reps'?el.value:(parseInt(el.value)||0);save('main')}
@@ -715,6 +740,7 @@ window.addEventListener('hashchange',fromHash);
 const h0=location.hash.slice(1);if(['vandaag','training','voeding','voortgang','profiel'].includes(h0))V.tab=h0;
 $('#labelIn').addEventListener('change',e=>{const f=e.target.files&&e.target.files[0];if(f)readLabel(f)});
 (async()=>{try{if(!IN_CLAUDE)return;const s=await window.claude.use('sample');if(!s)return;let ok=true;try{const l=s.limits?await s.limits():null;if(l&&l.images===false)ok=false}catch(e){}if(ok)SAMPLE=s}catch(e){}})();
+try{const qp=new URLSearchParams(location.search);if(qp.get('log')){addExt(qp.get('log').slice(0,40),num(qp.get('min'))||7,num(qp.get('kcal')));history.replaceState(null,'',location.pathname+'#vandaag');V.tab='vandaag';setTimeout(()=>toast(qp.get('log')+'-training toegevoegd'),300)}}catch(e){}
 setSync('local');render();initDb();
 }
 </script>

@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Fit & Food">
-<meta name="theme-color" content="#ff5a2c">
+<meta name="theme-color" content="#ffffff">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <title>Fit &amp; Food</title>
@@ -21,7 +21,7 @@
 :root{color-scheme:light dark;
 --bg:light-dark(#ffffff,#0e1013);--card:light-dark(#f3f4f6,#1a1d22);--card2:light-dark(#e9ebef,#23272d);
 --ink:light-dark(#121418,#f2f3f5);--mut:light-dark(#5b616c,#9ca3ae);--line:light-dark(#e2e4e8,#2b2f36);
---acc:#ff5a2c;--accd:light-dark(#d9431a,#ff7a52);--food:light-dark(#178a5e,#2fc488);
+--acc:light-dark(#121418,#ff5a2c);--accd:light-dark(#e0461b,#ff7a52);--food:light-dark(#ff5a2c,#f2f3f5);--onfood:light-dark(#ffffff,#121418);
 --p:#3b6cf6;--c:#f0a412;--f:#a35bd6;--warn:light-dark(#b54708,#f5a524)}
 :root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
 *{box-sizing:border-box;min-width:0;-webkit-tap-highlight-color:transparent}
@@ -42,7 +42,7 @@ p{margin:0 0 10px}
 .grow{flex:1}
 button,.btn{font:inherit;font-weight:600;border:0;border-radius:12px;min-height:44px;padding:10px 16px;background:var(--card2);color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;text-decoration:none}
 button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid var(--accd);outline-offset:2px}
-.pri{background:var(--acc);color:#fff}.grn{background:var(--food);color:#fff}
+.pri{background:var(--acc);color:#fff}.grn{background:var(--food);color:var(--onfood)}
 .ghost{background:transparent;padding:10px 8px;color:var(--accd)}
 .full{width:100%}
 .ico{width:20px;height:20px;flex:none}
@@ -160,7 +160,7 @@ label.f{display:block;margin:10px 0}label.f>span{display:block;font-size:14px;co
 .wkg{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
 .wd{flex-direction:column;gap:0;padding:8px 0;min-height:60px;border-radius:12px;background:var(--bg);border:1px solid var(--line)}
 .wd b{font-size:16px}.wd small{font-size:11px;color:var(--mut);font-weight:600}
-.wd.thuis{background:var(--food);border-color:var(--food);color:#fff}.wd.thuis small{color:rgb(255 255 255/.9)}
+.wd.thuis{background:var(--food);border-color:var(--food);color:var(--onfood)}.wd.thuis small{color:rgb(255 255 255/.9)}
 .wd.gym{background:var(--acc);border-color:var(--acc);color:#fff}.wd.gym small{color:rgb(255 255 255/.9)}
 .locb{display:inline-block;font-size:12px;font-weight:700;padding:2px 8px;border-radius:999px;color:#fff;background:var(--acc)}.locb.thuis{background:var(--food)}
 .exl{display:flex;align-items:center;gap:12px;width:100%;padding:8px 0;background:none;border-radius:0;text-align:left;min-height:64px;font-weight:500}
@@ -193,7 +193,9 @@ details.more{margin:10px 0 4px}details.more summary{cursor:pointer;font-weight:6
 .fxr{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--line)}.fxr input{width:72px;min-height:40px;padding:6px 8px;text-align:right}.fxr button{min-height:40px;width:40px;padding:0}
 .fxq{display:flex;gap:8px;overflow-x:auto;padding:8px 0 2px;scrollbar-width:none}.fxchip{flex:none;flex-direction:column;align-items:flex-start;gap:6px;background:color-mix(in srgb,var(--food) 10%,var(--card));border-radius:14px;padding:10px 12px;min-width:140px;font-size:14px}
 .li .fi{margin-right:2px}
-.vth{background:#fff}.vth img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;transform:scale(1.5)}
+.vth{background:#fff}.vth img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}.vth img:not([src]){visibility:hidden}
+.f3d-box{position:relative;width:100%;aspect-ratio:4/3;background:#fff;border-radius:14px;overflow:hidden}.f3d-box canvas{position:absolute;inset:0}.f3d-hint{position:absolute;right:10px;bottom:8px;font-size:12px;color:#6b7078;background:rgba(255,255,255,.85);padding:3px 8px;border-radius:999px;pointer-events:none;z-index:1}
+.pl-fig .f3d-box{aspect-ratio:auto;height:44vh;max-height:420px}
 .vdemo{background:#fff!important;padding:0!important}.exv{display:block;width:100%;aspect-ratio:16/9;object-fit:contain;background:#fff}
 .pl-fig.vdemo .exv{max-height:42vh;object-fit:contain}
 .vb{color:var(--accd);font-weight:600}
@@ -213,6 +215,8 @@ details.more{margin:10px 0 4px}details.more summary{cursor:pointer;font-weight:6
 .tool{display:flex;gap:4px}.tool button{min-height:40px;padding:6px 10px}
 @media(max-width:400px){.hero{grid-template-columns:1fr;justify-items:center;text-align:center}.hero .mac{width:100%;text-align:left}h1{font-size:28px}}
 </style>
+<script type="importmap">{"imports":{"three":"./3d/three.module.js"}}</script>
+<script type="module">import('./3d/viewer.js').then(F=>{window.FIG3D=F;dispatchEvent(new Event('fig3d'))}).catch(()=>{window.FIG3D_FAIL=1;dispatchEvent(new Event('fig3d'))});</script>
 </head>
 <body>
 <header class="top"><div class="wrap"><b id="ttl">Vandaag</b><span id="sync" class="sync">Laden…</span></div></header>
@@ -407,17 +411,12 @@ const IMGMAP={"invrow":"Inverted_Row","revlunge":"Dumbbell_Rear_Lunge","slbridge
 const IMG_RAW='https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/';
 const imgUrl=(e,k)=>!IMGMAP[e.id]?'':(window.claude&&window.claude.use)?`ex/${e.id}-${k}.jpg`:IMG_RAW+IMGMAP[e.id]+'/'+k+'.jpg';
 const VID={"abduction":"mf","adduction":"mf","adductorstretch":"mf","arnold":"mf","assistpull":"mf","backext":"mf","bandabd":"mf","bandpushdown":"mf","bb_squat":"mf","bbcurl":"mf","bbrdl":"mf","bbrow":"mf","bbshrug":"mf","bbupright":"mf","benchpress":"mf","bike":"mf","burpee":"mf","bw_squat":"mf","cablecrunch":"mf","cablefly":"mf","cablelat":"mf","cablerear":"mf","calf":"mf","calfstretch":"mf","chestdips":"mf","chestpress":"mf","chinup":"mf","closebench":"m","closepush":"mf","conccurl":"mf","crunch":"f","curl":"mf","dbfly":"mf","dbkickback":"mf","dbpress":"mf","dbrow":"mf","dbshoulder":"mf","dbshrug":"mf","dbsquat":"mf","dbupright":"m","deadlift":"mf","dips":"mf","elliptical":"mf","facepull":"mf","frontraise":"mf","frontsquat":"mf","goblet":"mf","hacksquat":"mf","hammer":"mf","hamstretch":"mf","hangleg":"mf","hipflexor":"mf","inclinebench":"mf","inclinecurl":"mf","inclinedb":"mf","inclinepushup":"mf","invrow":"mf","jj":"mf","jumprope":"mf","kbdeadlift":"mf","kickback":"mf","lateral":"mf","latmachine":"mf","latpull":"mf","legcurl":"mf","legext":"mf","legpress":"mf","legraise":"mf","lowbackstretch":"mf","lunge":"mf","machpress":"mf","neckstretch":"mf","ohp":"mf","overheadext":"mf","pecdeck":"mf","pecstretch":"mf","plank":"f","preacher":"mf","pullup":"mf","pushup":"mf","quadstretch":"mf","rdl":"mf","reardelt":"mf","revpecdeck":"mf","ropewave":"mf","running":"mf","seatedcalf":"mf","seatedcurl":"mf","seatedrow":"mf","sidebend":"mf","sideplank":"mf","situp":"mf","skull":"mf","smithpress":"mf","straightpull":"mf","sumo":"mf","tbarrow":"mf","thoracic":"mf","treadrun":"mf","triceppush":"mf","twistcrunch":"mf","vup":"mf","widepush":"mf","bulgarian":"mf","stepup":"mf","wallsit":"mf","glutebridge":"mf","hipthrust":"mf","clam":"mf","kneepushup":"mf","bandpull":"mf","superman":"mf","deadbug":"mf","birddog":"mf","russian":"mf","pallof":"mf","pronety":"mf","pikepush":"mf","revlunge":"mf","slbridge":"mf","sidelegraise":"mf","kbsldl":"mf","mountain":"mf","kbswing":"mf","row":"mf","walk":"mf","catcow":"mf","worldsgreatest":"mf"};
-const VID_BASE='vid/';
-const vidG=e=>{const v=VID[e.id]||'';const want=S.profile.sex==='v'?'f':'m';return v.includes(want)?want:v[0]};
-const vSrc=(e,ext)=>`${VID_BASE}${vidG(e)}/${e.id}.${ext}`;
-const hasVid=e=>!!VID[e.id];
-const GENV=new Set('bulgarian stepup wallsit glutebridge hipthrust clam kneepushup bandpull superman deadbug birddog russian pallof pronety pikepush revlunge slbridge sidelegraise kbsldl mountain kbswing row walk catcow worldsgreatest'.split(' '));
-const vRate=()=>+(S.profile.vspeed||2);
-function applyRate(v){if(!v||v.tagName!=='VIDEO'||!v.classList.contains('exv'))return;const r=v.dataset.gen?1:vRate();if(v.playbackRate!==r){v.defaultPlaybackRate=r;v.playbackRate=r}}
-['loadedmetadata','play','playing'].forEach(ev=>document.addEventListener(ev,e=>applyRate(e.target),true));
-const vidTag=(e,cls='')=>`<video class="exv ${cls}" ${GENV.has(e.id)?'data-gen="1" ':''}src="${vSrc(e,'mp4')}" poster="${vSrc(e,'jpg')}" autoplay muted loop playsinline preload="metadata" aria-label="Video ${esc(e.n)}"></video>`;
-const thumb=e=>VID[e.id]?`<span class="th fth vth"><img src="${vSrc(e,'jpg')}" alt="" loading="lazy"></span>`:ANIM[e.id]?`<span class="th fth">${figSVG(e.id)}</span>`:gIcon(e.g);
-const demo=e=>VID[e.id]?`<div class="demo vdemo">${vidTag(e)}</div>`:ANIM[e.id]?`<div class="demo">${figSVG(e.id,{anim:1})}</div>`:'';
+const sexK=()=>S.profile.sex==='v'?'f':'m';
+const hasVid=e=>true;
+const fb2d=(id,anim)=>ANIM[id]?figSVG(id,anim?{anim:1}:undefined):gIcon((EX[id]||{}).g);
+const vidTag=(e,cls='')=>`<div class="f3d-box ${cls}" data-f3d="${e.id}" role="img" aria-label="3D-animatie van ${esc(e.n)}. Sleep om rond te draaien."><span class="f3d-hint">↻ sleep om te draaien</span></div>`;
+const thumb=e=>`<span class="th fth vth"><img data-t3d="${e.id}" alt=""></span>`;
+const demo=e=>`<div class="demo vdemo">${vidTag(e)}</div>`;
 const gIcon=g=>`<span class="gl" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${GI[g]||''}</svg></span>`;
 
 /* ---------- Voedingsmiddelen (per 100 g) ---------- */
@@ -548,17 +547,18 @@ const peekDay=d=>S.days[d]||{food:[],wk:null,water:0};
 /* ---------- Berekeningen ---------- */
 const cycOn=()=>S.profile.cyc!=='uit';
 const MET_EX={running:9.8,treadrun:9,bike:7,elliptical:5,row:7,walk:4.3,jumprope:11,burpee:8,jj:8,mountain:8,ropewave:8,kbswing:9.8};
-function workoutKcal(dd){if(!dd||!dd.ex.length)return {k:0,min:0};const kg=+num(S.profile.kg)||75;let k=0,sec=0;
-  dd.ex.forEach(x=>{const e=EX[x.id];if(!e)return;const sets=+x.sets||1,ws=secsOf(x)||(e.g==='cardio'?600:40),rest=+x.rest||0,hi=dd.kind==='hiit';
+function workoutKcal(dd,done){if(!dd||!dd.ex.length)return {k:0,min:0,sets:0};const kg=+num(S.profile.kg)||75;let k=0,sec=0,nd=0;
+  dd.ex.forEach((x,i)=>{const e=EX[x.id];if(!e)return;const plan=+x.sets||1,sets=done?Math.min(plan,Object.values((done||{})[i]||{}).filter(Boolean).length):plan;if(!sets)return;nd+=sets;const ws=secsOf(x)||(e.g==='cardio'?600:40),rest=+x.rest||0,hi=dd.kind==='hiit';
     const met=hi?8:e.g==='cardio'?(MET_EX[x.id]||7):e.g==='mobiliteit'?2.5:5,dur=sets*(ws+rest)+(hi||e.g==='cardio'?0:sets*20);
     k+=(met-1)*kg*dur/3600;sec+=dur});
-  if(dd.circuit){const r=Math.max(0,(dd.circuit.rounds||1)-1)*(dd.circuit.rest||60);sec+=r;k+=2*kg*r/3600}
+  if(done&&!nd)return {k:0,min:0,sets:0};
+  if(dd.circuit){const R0=dd.circuit.rounds||1,rd=done?Math.max(0,...dd.ex.map((x,i)=>Object.values((done||{})[i]||{}).filter(Boolean).length)):R0;const r=Math.max(0,rd-1)*(dd.circuit.rest||60);sec+=r;k+=2*kg*r/3600}
   k+=2.5*kg*8/60;sec+=480; // warming-up en cooling-down
-  return {k:Math.round(k/5)*5,min:Math.round(sec/60)}}
+  return {k:Math.round(k/5)*5,min:Math.round(sec/60),sets:nd}}
 function dayBonus(date){
   if(!cycOn()||!date)return {b:0,parts:[]};
   const parts=[],d=peekDay(date),w=todaysWorkout(date);
-  if(w&&w.dd){const done=d.wk&&d.wk.plan===w.plan.id&&Object.values(d.wk.sets||{}).some(a=>Object.values(a||{}).some(Boolean));if(date>=today()||done)parts.push([w.dd.name,workoutKcal(w.dd).k])}
+  if(w&&w.dd&&d.wk&&d.wk.plan===w.plan.id){const wk=workoutKcal(w.dd,d.wk.sets||{});if(wk.k>0)parts.push([w.dd.name+` (${wk.sets} ${wk.sets===1?'set':'sets'})`,wk.k])}
   (d.ext||[]).forEach(x=>parts.push([x.n,+x.kcal||0]));
   const raw=parts.reduce((a,x)=>a+x[1],0),f=ngoal()==='afvallen'?0.75:1;
   return {b:Math.round(raw*f/10)*10,raw,f,parts};
@@ -772,7 +772,7 @@ function genMealPlan(){
     const meals=[],wd=(d+1)%7,fxm={};
     (S.fixed||[]).forEach(f=>{if((f.days||[]).includes(wd)&&fxm[f.m]===undefined)fxm[f.m]=f});
     skip.forEach(m=>delete fxm[m]);
-    const td=addBonus(t,wdBonus(wd));
+    const td=addBonus(t,0),plannedB=wdBonus(wd);
     const fxK=Object.values(fxm).reduce((a,f)=>a+sumFood(fxItems(f)).k,0),freeSplit=[0,1,2,3].filter(m=>!fxm[m]).reduce((a,m)=>a+split[m],0)||1,kcalFree=Math.max(0,td.kcal-fxK);
     for(let m=0;m<4;m++){
       if(skip.includes(m))continue;
@@ -785,7 +785,7 @@ function genMealPlan(){
       const sc=Math.max(.5,Math.min(ds==='if168'?2.8:2.2,kcalFree*split[m]/freeSplit/base));
       meals.push({m,n:pk.n,it:pk.it.map(([n,g])=>[n,Math.max(5,Math.round(g*sc/5)*5)])});
     }
-    topUp(meals,td,ds);bonus.push(td.bonus||0);days.push(meals);
+    topUp(meals,td,ds);bonus.push(plannedB||0);days.push(meals);
   }
   S.mealPlan={made:today(),kcal:t.kcal,diet:ds,goal:ngoal(),days,bonus};save('main');
 }
@@ -879,7 +879,7 @@ function libList(q,g,act,extra=''){
   q=(q||'').toLowerCase().trim();
   const list=EXR.filter(e=>(!g||e.g===g)&&(!q||e.n.toLowerCase().includes(q)||e.en.includes(q)||GROUPS[e.g].toLowerCase().includes(q))).sort((a,b)=>conflicts(a).length-conflicts(b).length);
   if(!list.length)return '<div class="empty">Geen oefeningen gevonden.</div>';
-  return list.map(e=>{const cf=conflicts(e);return `<button class="li" data-a="${act}" data-id="${e.id}" ${extra}>${thumb(e)}<span class="t"><b>${esc(e.n)}</b><small>${meta(e).p.map(k=>MUSN[k]).join(', ')} · ${eqTxt(e)}${hasVid(e)?' · <span class="vb">video</span>':''}</small>${cf.length?`<span class="jc l2 hurt" style="margin-top:3px">Belast ${cf.map(c=>INJ[c].toLowerCase()).join(', ')}</span>`:''}</span></button>`}).join('');
+  return list.map(e=>{const cf=conflicts(e);return `<button class="li" data-a="${act}" data-id="${e.id}" ${extra}>${thumb(e)}<span class="t"><b>${esc(e.n)}</b><small>${meta(e).p.map(k=>MUSN[k]).join(', ')} · ${eqTxt(e)}${''}</small>${cf.length?`<span class="jc l2 hurt" style="margin-top:3px">Belast ${cf.map(c=>INJ[c].toLowerCase()).join(', ')}</span>`:''}</span></button>`}).join('');
 }
 function editPlan(){
   const pl=S.plans.find(x=>x.id===V.edit);if(!pl){V.edit=null;return vTraining()}
@@ -944,7 +944,7 @@ function mealPlanView(){
   meals.forEach(ml=>{const its=mealItems(ml),s=sumFood(its);dt.k+=s.k;dt.p+=s.p;dt.c+=s.c;dt.f+=s.f;
     const tk=s.k||1;
     h+=`<div class="card mpc"><div class="row" style="align-items:center">${icoStack(its.map(x=>x.n),44)}<div class="grow"><small class="mut">${MEALS[ml.m]}${ml.fx?' · <span class="badge ok">vast</span>':''}</small><h3 style="margin:0">${esc(ml.n)}</h3></div><b class="num">${R(s.k)}<small class="mut"> kcal</small></b></div><div class="mbar"><i style="width:${s.p*4/tk*100}%;background:var(--p)"></i><i style="width:${s.c*4/tk*100}%;background:var(--c)"></i><i style="width:${s.f*9/tk*100}%;background:var(--f)"></i></div><div class="mpl">${its.map(e=>`<div class="mpi">${foodIco(e.n,30)}<span class="grow">${esc(e.n)}</span><span class="num mut sm">${R(e.g)} g${portionTxt(findFood(e.n),e.g)}</span></div>`).join('')}</div><p class="xs mut" style="margin:6px 0 0"><span style="color:var(--p)">●</span> Eiwit ${R(s.p)} g <span style="color:var(--c)">●</span> Koolh. ${R(s.c)} g <span style="color:var(--f)">●</span> Vet ${R(s.f)} g</p></div>`});
-  h+=`<div class="card"><div class="row sp"><b>Dagtotaal</b><b class="num">${R(dt.k)} kcal</b></div>${(mp.bonus||[])[V.mpDay]?`<p class="xs" style="margin:4px 0 0"><span class="badge ok">Sportdag +${mp.bonus[V.mpDay]} kcal</span></p>`:''}<p class="xs mut" style="margin:4px 0 0">E ${R(dt.p)} g · K ${R(dt.c)} g · V ${R(dt.f)} g</p></div><div class="g2"><button class="grn" data-a="mptolog">Zet in dagboek van vandaag</button><button data-a="genmeal">Nieuw schema</button></div>`;
+  h+=`<div class="card"><div class="row sp"><b>Dagtotaal</b><b class="num">${R(dt.k)} kcal</b></div>${(mp.bonus||[])[V.mpDay]?`<p class="xs" style="margin:4px 0 0"><span class="badge ok">Trainingsdag</span> Na je training mag je ongeveer ${mp.bonus[V.mpDay]} kcal extra eten. Dat komt pas bij je dagdoel zodra je sets afvinkt.</p>`:''}<p class="xs mut" style="margin:4px 0 0">E ${R(dt.p)} g · K ${R(dt.c)} g · V ${R(dt.f)} g</p></div><div class="g2"><button class="grn" data-a="mptolog">Zet in dagboek van vandaag</button><button data-a="genmeal">Nieuw schema</button></div>`;
   return h;
 }
 function vVoortgang(){
@@ -993,13 +993,11 @@ function vProfiel(){
   const inp=(k,l,ph,mode='decimal')=>`<label class="f"><span>${l}</span><input inputmode="${mode}" value="${esc(p[k])}" placeholder="${ph}" data-in="pf" data-k="${k}"></label>`;
   let h=`<h1>Profiel</h1><p class="mut">Hiermee worden je calorie-doel, macro's en trainingsschema berekend.</p>`;
   h+=`<div class="card"><label class="f"><span>Naam</span><input value="${esc(p.name)}" placeholder="Je voornaam" data-in="pf" data-k="name"></label><div class="g2"><label class="f"><span>Geslacht</span>${sel('sex',[['m','Man'],['v','Vrouw']])}</label>${inp('age','Leeftijd','bijv. 34','numeric')}${inp('cm','Lengte (cm)','bijv. 182','numeric')}${inp('kg','Gewicht (kg)','bijv. 84')}</div>${inp('goalkg','Streefgewicht (kg, optioneel)','bijv. 78')}${cycOn()?`<label class="f"><span>Hoe actief ben je buiten het sporten?</span>${sel('daily',[[1.25,'Zittend werk, weinig lopen'],[1.4,'Veel staan of lopen'],[1.6,'Fysiek zwaar werk']])}</label>`:`<label class="f"><span>Dagelijkse activiteit inclusief sport</span>${sel('act',[[1.2,'Zittend werk, weinig beweging'],[1.375,'Licht actief: 1–3× per week sporten'],[1.55,'Gemiddeld actief: 3–5× per week'],[1.725,'Zeer actief: 6–7× per week'],[1.9,'Extreem actief / fysiek werk']])}</label>`}
-  <div class="row sp" style="margin-top:12px;gap:12px"><span class="sm"><b>Meer eten op sportdagen</b><br><span class="xs mut">${cycOn()?'Rustdag: je basisdoel. Sportdag: daarbovenop de calorieën van je training.':'Elke dag hetzelfde doel; je sport is over de week verdeeld.'}</span></span><div class="seg" style="margin:0;flex:none"><button class="${cycOn()?'on':''}" data-a="cyc" data-v="aan">Aan</button><button class="${cycOn()?'':'on'}" data-a="cyc" data-v="uit">Uit</button></div></div></div>`;
+  <div class="row sp" style="margin-top:12px;gap:12px"><span class="sm"><b>Meer eten op sportdagen</b><br><span class="xs mut">${cycOn()?'Je basisdoel geldt elke dag. Zodra je sets afvinkt, komen de calorieën van die sets erbij.':'Elke dag hetzelfde doel; je sport is over de week verdeeld.'}</span></span><div class="seg" style="margin:0;flex:none"><button class="${cycOn()?'on':''}" data-a="cyc" data-v="aan">Aan</button><button class="${cycOn()?'':'on'}" data-a="cyc" data-v="uit">Uit</button></div></div></div>`;
   h+=`<h2>Doel</h2><div class="card"><div class="chips wrapr" style="flex-wrap:wrap">${[['afvallen','Afvallen'],['spier','Spieropbouw'],['behoud','Fit blijven'],['fit','Conditie']].map(([v,l])=>`<button class="chip ${p.goal===v?'on':''}" data-a="pfset" data-k="goal" data-v="${v}">${l}</button>`).join('')}</div><div class="g2"><label class="f"><span>Niveau</span>${sel('lvl',[['beginner','Beginner'],['gevorderd','Gevorderd']])}</label><label class="f"><span>Voeding</span>${sel('diet',[['alles','Alles'],['veg','Vegetarisch']])}</label></div></div>`;
   const sch=getSched(),anyHome=Object.values(sch).includes('thuis');
   h+=`<h2>Wanneer en waar train je?</h2><div class="card"><p class="sm mut" style="margin-bottom:8px">Tik op een dag: rust → thuis → sportschool.</p><div class="wkg">${[1,2,3,4,5,6,0].map(w=>`<button class="wd ${sch[w]||''}" data-a="sched" data-w="${w}"><b>${DOW[w]}</b><small>${sch[w]?(sch[w]==='gym'?'Gym':'Thuis'):'Rust'}</small></button>`).join('')}</div><p class="xs mut" style="margin:8px 0 0">${Object.keys(sch).length} trainingen per week${anyHome?'':' · alles in de sportschool'}</p>${anyHome?`<h3 style="margin-top:16px;font-size:15px">Wat heb je thuis?</h3><div class="chips" style="flex-wrap:wrap">${HOME_OPTS.map(k=>`<button class="chip ${(p.homeEq||[]).includes(k)?'on':''}" data-a="homeeq" data-k="${k}">${EQ[k]}</button>`).join('')}</div><p class="xs mut" style="margin:4px 0 0">Niets gekozen? Dan krijg je alleen oefeningen met je eigen lichaamsgewicht.</p>`:''}</div>`;
   const rp=String(p.rest||'auto');
-  const vs=String(p.vspeed||2);
-  h+=`<h2>Snelheid voorbeeldvideo's</h2><div class="card"><div class="chips" style="flex-wrap:wrap">${[['1','Normaal'],['1.5','1,5×'],['2','2×'],['3','3×']].map(([v,l])=>`<button class="chip ${vs===v?'on':''}" data-a="vspeed" data-v="${v}">${l}</button>`).join('')}</div><p class="xs mut" style="margin:8px 0 0">Geldt voor de 3D-video's. De getekende video's spelen altijd op normale snelheid.</p></div>`;
   h+=`<h2>Water en vasten</h2><div class="card"><label class="f"><span>Waterdoel per dag (ml)</span><input inputmode="numeric" data-in="pf" data-k="waterGoal" value="${esc(p.waterGoal||'')}" placeholder="automatisch: ${waterGoal()} ml"></label><div class="row sp" style="margin-top:8px"><span class="sm"><b>Vasten-timer</b><br><span class="xs mut">${fastOn()?`Aan · ${esc(p.fastPlan||'16:8')}, eten vanaf ${esc(p.fastStart||'12:00')}`:'Uit'}</span></span><div class="seg" style="margin:0;flex:none"><button class="${fastOn()?'on':''}" data-a="faston">Aan</button><button class="${fastOn()?'':'on'}" data-a="fastoff">Uit</button></div></div></div>`;
   h+=`<h2>Rust tussen sets</h2><div class="card"><div class="chips" style="flex-wrap:wrap">${REST_OPTS.map(([v,l])=>`<button class="chip ${rp===String(v)?'on':''}" data-a="restpref" data-v="${v}">${l}</button>`).join('')}</div><p class="xs mut" style="margin:8px 0 0">${rp==='auto'?'Automatisch: korter bij afvallen en core, langer bij zware oefeningen voor spieropbouw.':'Geldt voor al je schema\'s.'} Per oefening pas je het aan in de schema-editor of tijdens de training.</p></div>`;
   h+=`<h2>Blessures of klachten</h2><div class="card"><p class="sm mut">Automatische schema's laten oefeningen die deze plek zwaar belasten weg en kiezen waar mogelijk oefeningen die er helemaal niet op drukken.</p><div class="chips" style="flex-wrap:wrap">${Object.entries(INJ).map(([k,v])=>`<button class="chip ${(p.inj||[]).includes(k)?'on':''}" data-a="inj" data-k="${k}">${v}</button>`).join('')}</div><p class="xs mut" style="margin:8px 0 0">Heb je pijn tijdens een oefening, stop dan en overleg met een fysiotherapeut of huisarts.</p></div>`;
@@ -1547,6 +1545,20 @@ function fixedSheet(){
 }
 
 /* ---------- Render ---------- */
+// ---------- 3D-oefeningen
+const F3={q:[],busy:0,pend:0};
+function hydrate3d(){
+  if(!window.FIG3D){if(window.FIG3D_FAIL)fallback3d();return}
+  document.querySelectorAll('[data-f3d]:not([data-on])').forEach(el=>{el.dataset.on=1;let api=null;try{api=FIG3D.mount(el,el.dataset.f3d,sexK())}catch(e){}if(!api)el.innerHTML=fb2d(el.dataset.f3d,1)});
+  document.querySelectorAll('img[data-t3d]:not([data-on])').forEach(im=>{im.dataset.on=1;F3.q.push(im)});
+  pumpThumbs()}
+function pumpThumbs(){if(F3.busy||!F3.q.length)return;F3.busy=1;const step=()=>{const t0=performance.now();
+  while(F3.q.length&&performance.now()-t0<14){const im=F3.q.shift();if(!im.isConnected)continue;let u=null;try{u=FIG3D.thumb(im.dataset.t3d,sexK(),160)}catch(e){}if(u)im.src=u;else if(im.parentElement)im.parentElement.innerHTML=fb2d(im.dataset.t3d)}
+  if(F3.q.length)requestAnimationFrame(step);else F3.busy=0};requestAnimationFrame(step)}
+function fallback3d(){document.querySelectorAll('[data-f3d]:not([data-on])').forEach(el=>{el.dataset.on=1;el.innerHTML=fb2d(el.dataset.f3d,1)});document.querySelectorAll('img[data-t3d]:not([data-on])').forEach(im=>{im.dataset.on=1;if(im.parentElement)im.parentElement.innerHTML=fb2d(im.dataset.t3d)})}
+new MutationObserver(()=>{if(!F3.pend){F3.pend=1;requestAnimationFrame(()=>{F3.pend=0;hydrate3d()})}}).observe(document.body,{childList:true,subtree:true});
+addEventListener('fig3d',hydrate3d);
+setTimeout(()=>{if(!window.FIG3D){window.FIG3D_FAIL=1;hydrate3d()}},10000);
 function render(){
   cleanPlans();
   const T={vandaag:['Vandaag',vToday],training:['Training',vTraining],voeding:['Voeding',vVoeding],voortgang:['Voortgang',vVoortgang],profiel:['Profiel',vProfiel]};
